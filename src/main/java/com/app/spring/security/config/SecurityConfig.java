@@ -29,18 +29,27 @@ import java.util.List;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+//        return httpSecurity
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .httpBasic(Customizer.withDefaults())
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .authorizeHttpRequests(authorizeRequests -> {
+//                            authorizeRequests.requestMatchers(HttpMethod.GET, "/auth/hello").permitAll();
+//                            authorizeRequests.requestMatchers(HttpMethod.GET, "/auth/hello-secured").hasAuthority("READ");
+//                            authorizeRequests.anyRequest().authenticated();
+//                        }
+//                )
+//                .build();
+//    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorizeRequests -> {
-                            authorizeRequests.requestMatchers(HttpMethod.GET, "/auth/hello").permitAll();
-                            authorizeRequests.requestMatchers(HttpMethod.GET, "/auth/hello-secured").hasAuthority("READ");
-                            authorizeRequests.anyRequest().authenticated();
-                        }
-                )
                 .build();
     }
 
