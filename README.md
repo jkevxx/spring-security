@@ -37,6 +37,11 @@ SHOW DATABASES;
 USE myapp;
 SHOW TABLES;
 -- \q exit
+
+select u.username, r.role_name 
+from users u 
+inner join user_roles ur on u.id = ur.user_id 
+inner join roles r on ur.role_id = r.id;
 ```
 
 video reference [here]()
