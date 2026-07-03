@@ -1,5 +1,6 @@
 package com.app.spring.security.config;
 
+import com.app.spring.security.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -65,35 +66,33 @@ public class SecurityConfig {
 //        provider.setUserDetailsService(null);
 //        return provider;
 //    }
-
-//    public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+    
     @Bean
-    public AuthenticationProvider authenticationProvider() {
-
-        // Pass the required UserDetailsService directly into the constructor
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService());
+    public AuthenticationProvider authenticationProvider(UserDetailsServiceImpl userDetailsService) {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        List<UserDetails> userDetails = new ArrayList<>();
-
-        userDetails.add(User.withUsername("kevin")
-                .password("1234")
-                .roles("ADMIN")
-                .authorities("READ", "CREATE")
-                .build());
-
-        userDetails.add(User.withUsername("tony")
-                .password("1234")
-                .roles("USER")
-                .authorities("READ")
-                .build());
-
-        return new InMemoryUserDetailsManager(userDetails);
-    }
+//    This is an injected example
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        List<UserDetails> userDetails = new ArrayList<>();
+//
+//        userDetails.add(User.withUsername("kevin")
+//                .password("1234")
+//                .roles("ADMIN")
+//                .authorities("READ", "CREATE")
+//                .build());
+//
+//        userDetails.add(User.withUsername("tony")
+//                .password("1234")
+//                .roles("USER")
+//                .authorities("READ")
+//                .build());
+//
+//        return new InMemoryUserDetailsManager(userDetails);
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

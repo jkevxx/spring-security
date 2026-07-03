@@ -53,6 +53,7 @@ public class SpringSecurityApplication {
 
 			RoleEntity roleCustomer = RoleEntity.builder()
 					.roleEnum(RoleEnum.CUSTOMER)
+					.permissions(Set.of(createPermission, readPermission))
 					.build();
 
 			/* Create User */
